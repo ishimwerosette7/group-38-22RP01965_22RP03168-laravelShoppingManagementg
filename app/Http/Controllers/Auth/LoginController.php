@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserActivity;
@@ -28,7 +29,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
             
-            // Record login activity
+            // Record login activities
             UserActivity::create([
                 'user_id' => Auth::id(),
                 'action' => 'login',
