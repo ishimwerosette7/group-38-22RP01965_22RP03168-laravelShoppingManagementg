@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -8,7 +7,6 @@
                 <div class="card-header">
                     <h3>Add New Product</h3>
                 </div>
-
                 <div class="card-body">
                     @if ($errors->any())
                         <div class="alert alert-danger">
