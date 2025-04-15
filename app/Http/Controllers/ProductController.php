@@ -25,6 +25,7 @@ class ProductController extends Controller
         }
     }
 
+
     public function show(Product $product)
     {
         if ($product->quantity <= 0) {
@@ -104,6 +105,8 @@ class ProductController extends Controller
 
         return redirect()->route('seller.dashboard')
             ->with('success', 'Product updated successfully!');
+
+        
     }
 
     public function destroy(Product $product)
