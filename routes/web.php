@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -10,12 +9,10 @@ use App\Http\Controllers\SellerController;
 use App\Http\Controllers\BuyerController;
 use App\Http\Middleware\BuyerMiddleware;
 use App\Http\Middleware\SellerMiddleware;
-
 // Public routes
 Route::get('/', function () {
     return redirect()->route('register');
 });
-
 // Authentication routes
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -32,7 +29,6 @@ Route::middleware(['auth'])->group(function () {
         }
         return redirect()->route('buyer.dashboard');
     })->name('dashboard');
-
     // Seller routes
     Route::middleware([SellerMiddleware::class])->group(function () {
         Route::get('/seller/dashboard', [SellerController::class, 'dashboard'])->name('seller.dashboard');
