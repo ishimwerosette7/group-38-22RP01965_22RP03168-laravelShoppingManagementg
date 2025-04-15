@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Http\Middleware;
-
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-
 class SellerMiddleware
 {
     /**
@@ -19,7 +16,6 @@ class SellerMiddleware
         if (!Auth::check() || !Auth::user()->isSeller()) {
             return redirect()->route('dashboard')->with('error', 'You must be a seller to access this page.');
         }
-
         return $next($request);
     }
 } 
