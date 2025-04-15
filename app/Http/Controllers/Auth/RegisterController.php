@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-
 class RegisterController extends Controller
 {
     public function showRegistrationForm()
@@ -27,7 +24,6 @@ class RegisterController extends Controller
             'business_type' => ['required_if:account_type,seller', 'nullable', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Password::min(4)],
         ]);
-
         $user = User::create([
             'full_name' => $request->full_name,
             'email' => $request->email,
@@ -38,7 +34,6 @@ class RegisterController extends Controller
             'business_type' => $request->business_type,
             'password' => Hash::make($request->password),
         ]);
-
         return redirect()->route('login')
             ->with('success', 'Registration successful! Please login with your credentials.');
     }
