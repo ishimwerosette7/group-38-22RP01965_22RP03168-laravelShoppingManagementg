@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\UserActivity;
 use App\Models\Product;
 use App\Models\Order;
@@ -9,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-
 class SellerController extends BaseController
 {
     public function __construct()
@@ -46,7 +43,6 @@ class SellerController extends BaseController
             'activities'
         ));
     }
-
     public function create()
     {
         return view('seller.products.create');
