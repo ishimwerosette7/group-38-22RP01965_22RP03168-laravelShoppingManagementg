@@ -87,7 +87,6 @@ class SellerController extends BaseController
         if ($product->seller_id !== Auth::id()) {
             abort(403);
         }
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:shoes,clothes',
@@ -111,30 +110,25 @@ class SellerController extends BaseController
         return redirect()->route('seller.dashboard')
             ->with('success', 'Product updated successfully!');
     }
-
     public function destroy(Product $product)
     {
         if ($product->seller_id !== Auth::id()) {
             abort(403);
         }
-
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
-
         $product->delete();
 
         return redirect()->route('seller.dashboard')
             ->with('success', 'Product deleted successfully!');
     }
-
     public function allProducts()
     {
         $products = Product::with('seller')
             ->select('products.*', DB::raw('(SELECT COUNT(*) FROM order_items WHERE order_items.product_id = products.id) as total_orders'))
             ->latest()
             ->paginate(12);
-
         return view('seller.products.all', compact('products'));
     }
 }
