@@ -1,13 +1,11 @@
 <?php
 namespace App\Http\Controllers;
-
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
-
 class OrderController extends Controller
 {
     public function index()
@@ -19,7 +17,6 @@ class OrderController extends Controller
 
         return view('orders.index', compact('orders'));
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -29,28 +26,22 @@ class OrderController extends Controller
             'payment_method' => ['required', 'string', 'in:cash,credit_card,bank_transfer'],
             'comments' => ['nullable', 'string'],
         ]);
-
         $totalAmount = 0;
         $orderItems = [];
-
         foreach ($request->items as $item) {
             $product = Product::findOrFail($item['product_id']);
-            
             if ($product->quantity < $item['quantity']) {
                 return back()->with('error', "Insufficient quantity for product: {$product->name}");
             }
-
             $totalAmount += $product->price * $item['quantity'];
             $orderItems[] = [
                 'product_id' => $product->id,
                 'quantity' => $item['quantity'],
                 'price' => $product->price,
             ];
-
             // Update product quantity
             $product->decrement('quantity', $item['quantity']);
         }
-
         // Calculate discount (10%)
         $discount = $totalAmount * 0.1;
         $finalAmount = $totalAmount - $discount;
@@ -68,7 +59,6 @@ class OrderController extends Controller
         foreach ($orderItems as $item) {
             $order->items()->create($item);
         }
-
         return redirect()->route('orders.index')->with('success', 'Order placed successfully!');
     }
 
@@ -77,7 +67,6 @@ class OrderController extends Controller
         if ($order->buyer_id !== Auth::id()) {
             abort(403);
         }
-
         return view('orders.show', compact('order'));
     }
 
