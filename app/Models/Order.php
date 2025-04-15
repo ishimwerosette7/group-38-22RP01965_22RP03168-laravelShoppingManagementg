@@ -13,14 +13,12 @@ class Order extends Model
         'payment_status',
         'comments',
     ];
-
     public function buyer()
     {
         return $this->belongsTo(User::class, 'buyer_id');
     }
-
     public function items()
     {
-        return $this->hasMany(OrderItem::class);
+      return $this->hasMany(OrderItem::class);
     }
 } 
