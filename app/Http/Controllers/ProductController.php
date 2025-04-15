@@ -108,11 +108,9 @@ class ProductController extends Controller
             return redirect()->route('seller.dashboard')
                 ->with('error', 'You are not authorized to delete this product.');
         }
-
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
-
         $product->delete();
 
         return redirect()->route('seller.dashboard')
