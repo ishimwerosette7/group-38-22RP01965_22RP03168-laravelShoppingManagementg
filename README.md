@@ -125,6 +125,7 @@ A Laravel-based stock management system for managing shoes and clothes inventory
 
 ## Payment Methods
 - Airtel Money
+- Cash
 - Mobile Money
 - Bank of Kigali (BK)
 - Other payment methods can be added as needed
