@@ -7,7 +7,6 @@
                 <div class="card-header">
                     <h3>Buyer Dashboard</h3>
                 </div>
-
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
