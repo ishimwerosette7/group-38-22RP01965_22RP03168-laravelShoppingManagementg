@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -7,16 +6,13 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserActivityController;
-
 // Public routes
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
-
 // Protected routes
 Route::middleware('auth:sanctum')->group(function () {
     // Authentication
     Route::post('/logout', [LoginController::class, 'logout']);
-    
     // Products
     Route::get('/products', [ProductController::class, 'index']);
     Route::middleware('seller')->group(function () {
