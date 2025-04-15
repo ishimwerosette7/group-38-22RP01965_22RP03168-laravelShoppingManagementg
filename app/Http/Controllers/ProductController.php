@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Product;
 use App\Models\UserActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
 class ProductController extends Controller
 {
     public function index()
@@ -24,8 +21,6 @@ class ProductController extends Controller
             return view('products.index', compact('products'));
         }
     }
-
-
     public function show(Product $product)
     {
         if ($product->quantity <= 0) {
@@ -40,7 +35,6 @@ class ProductController extends Controller
     {
         return view('products.create');
     }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -59,7 +53,6 @@ class ProductController extends Controller
             $path = $request->file('image')->store('products', 'public');
             $product->image = $path;
         }
-
         $product->save();
 
         return redirect()->route('seller.dashboard')
